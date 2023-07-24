@@ -1,36 +1,51 @@
 package questions;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class Question03 {
-    /**
-     * 在一个二维数组中，每一行都按照从左到右递增
-     * 的顺序排序，每一列都按照从上到下递增的顺序排序。
-     * 请完成一个函数，输入这样的一个二维数组
-     * 和一个整数，判断数组中是否函数该整数。
-     */
-    public static void main(String[] args) {
-        int[][] arr =
-                {{1,2,8,9},
-                {2,4,9,12},
-                {4,7,10,13},
-                {6,8,11,15}};
-        System.out.println(new Question03().search(arr,7));
+
+    // nums取值范围为[0, n-1]
+    public int findRepeatNumber(int[] nums) {
+        int i = 0;
+        while(i < nums.length) {
+            if(nums[i] == i) {
+                i++;
+                continue;
+            }
+            if(nums[nums[i]] == nums[i]) return nums[i];
+            int tmp = nums[i];
+            nums[i] = nums[tmp];
+            nums[tmp] = tmp;
+        }
+        return -1;
     }
 
-    private boolean search(int[][] array, int value) {
-        if (array == null || array.length == 0 || array[0].length ==0)
-            return false;
-
-        int row = 0;
-        int col = array[0].length-1;
-        while (row < array.length && col >= 0) {
-            if (array[row][col] == value)
-                return true;
-            else if (array[row][col] > value)
-                col--;
-            else
-                row++;
+    private int findRepeatNumberWithSort(int[] nums) {
+        Arrays.sort(nums);
+        int prev = -1;
+        for (int num : nums) {
+            if (num == prev) {
+                return num;
+            }
+            prev = num;
         }
-        return false;
+        return -1;
+    }
+
+    private int findRepeatNumberWithSet(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            if (!set.add(num)) {
+                return num;
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Question03 question03 = new Question03();
+//        System.out.println(question03.findRepeatNumber(new int[]{2, 3, 1, 0, 2, 5, 3}));
+        System.out.println(question03.findRepeatNumber(new int[]{3, 4, 2, 1, 1, 0}));
     }
 }
-

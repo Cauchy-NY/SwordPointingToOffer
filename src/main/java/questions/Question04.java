@@ -1,43 +1,30 @@
 package questions;
 
 public class Question04 {
-    /**
-     * 请实现一个函数，把字符串中的每个空格替换成"%20"。
-     * 例如输入"We are happy"，则输出"We%20are%20happy"
-     */
-    public static void main(String[] args) {
-        String str="We are happy";
-        char[] charArray = str.toCharArray();
-        System.out.println(change(charArray));
-    }
 
-    private static String change(char[] charArray) {
-        int count = 0;
-        for (int i = 0; i < charArray.length; i++){
-            if (charArray[i] == ' ')
-                count++;
-        }
-
-        if (count == 0)
-            return new String(charArray);
-
-        char[] newStr = new char[charArray.length + 2*count];
-        for (int i = 0, j = 0; j < newStr.length; i++, j++) {
-            if (charArray[i] == ' ') {
-                newStr[j] = '0';
-                newStr[j + 1] = '2';
-                newStr[j + 2] = '%';
-                j += 2;
+    public boolean findNumberIn2DArray(int[][] matrix, int target) {
+        for (int i = matrix.length - 1, j = 0; i >= 0 && j < matrix[0].length; ) {
+            if (matrix[i][j] == target) {
+                return true;
+            } else if (matrix[i][j] > target) {
+                i--;
             } else {
-                newStr[j] = charArray[i];
+                j++;
             }
         }
-        return new String(newStr);
+        return false;
     }
-    /**
-     * 相关题目：
-     * “有两个排序的数组A1和A2，内存在A1的末尾有足够多的空余空间容纳A2。
-     * 请实现一个函数，把A2中的所有数字插入到A1中并且所有的数字是排序的。”
-     * 关键在A1从后到前拷贝
-     */
+
+    public static void main(String[] args) {
+        Question04 question04 = new Question04();
+        int[][] matrix = {
+            {1, 4, 7, 11, 15},
+            {2, 5, 8, 12, 19},
+            {3, 6, 9, 16, 22},
+            {10, 13, 14, 17, 24},
+            {18, 21, 23, 26, 30}
+        };
+        System.out.println(question04.findNumberIn2DArray(matrix, 5));
+        System.out.println(question04.findNumberIn2DArray(matrix, 31));
+    }
 }

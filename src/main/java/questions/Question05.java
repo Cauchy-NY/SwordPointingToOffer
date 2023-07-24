@@ -1,29 +1,21 @@
 package questions;
 
-import util.Node;
-
-import java.util.Stack;
-
 public class Question05 {
-    /**
-     * 从尾到头打印列表
-     */
-    public static void main(String[] args) {
-        new Question05().reversePrint(Node.getALinkedList());
+
+    public String replaceSpace(String s) {
+        StringBuilder res = new StringBuilder();
+        for (Character c : s.toCharArray()) {
+            if (c == ' ') {
+                res.append("%20");
+            } else {
+                res.append(c);
+            }
+        }
+        return res.toString();
     }
 
-    private void reversePrint(Node head) {
-        if (head == null) 
-            return;
-
-        Stack<Integer> stack = new Stack<Integer>();
-        Node cur = head;
-        while (cur != null) {
-            stack.push(cur.var);
-            cur = cur.next;
-        }
-        while (!stack.isEmpty()) {
-            System.out.print(stack.pop()+" ");
-        }
+    public static void main(String[] args) {
+        Question05 question05 = new Question05();
+        System.out.println(question05.replaceSpace("I have a dream"));
     }
 }

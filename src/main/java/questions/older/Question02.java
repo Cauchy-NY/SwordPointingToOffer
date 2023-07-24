@@ -1,4 +1,4 @@
-package questions;
+package questions.older;
 
 public class Question02 {
     public static void main(String[] args) {
